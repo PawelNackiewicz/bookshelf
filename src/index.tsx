@@ -1,38 +1,38 @@
-import '@reach/dialog/styles.css'
-import * as React from 'react'
-import ReactDOM from 'react-dom'
-import {Dialog} from '@reach/dialog'
-import {Logo} from './components/logo'
+import '@reach/dialog/styles.css';
+import * as React from 'react';
+import ReactDOM from 'react-dom';
+import { Dialog } from '@reach/dialog';
+import { Logo } from './components/logo';
 
 interface FormElements extends HTMLFormControlsCollection {
-  username: HTMLInputElement,
-  password: HTMLInputElement  
+  username: HTMLInputElement;
+  password: HTMLInputElement;
 }
 interface UsernameFormElement extends HTMLFormElement {
-  readonly elements: FormElements
+  readonly elements: FormElements;
 }
 
 type LoginFormProps = {
-  onSubmit: (formData: LoginFormInputs) => void,
-  buttonText: string
-}
+  onSubmit: (formData: LoginFormInputs) => void;
+  buttonText: string;
+};
 
 type LoginFormInputs = {
-  username: string,
-  password: string
-}
+  username: string;
+  password: string;
+};
 
-type ModalState = 'none' | 'login' | 'register'
+type ModalState = 'none' | 'login' | 'register';
 
-function LoginForm({onSubmit, buttonText}: LoginFormProps) {
+function LoginForm({ onSubmit, buttonText }: LoginFormProps) {
   function handleSubmit(event: React.FormEvent<UsernameFormElement>) {
-    event.preventDefault()
-    const {username, password} = event.currentTarget.elements
+    event.preventDefault();
+    const { username, password } = event.currentTarget.elements;
 
     onSubmit({
       username: username.value,
       password: password.value,
-    })
+    });
   }
 
   return (
@@ -49,11 +49,11 @@ function LoginForm({onSubmit, buttonText}: LoginFormProps) {
         <button type="submit">{buttonText}</button>
       </div>
     </form>
-  )
+  );
 }
 
 function App() {
-  const [openModal, setOpenModal] = React.useState<ModalState>('none')
+  const [openModal, setOpenModal] = React.useState<ModalState>('none');
 
   function login(formData: LoginFormInputs) {
     // console.log('login', formData)
@@ -88,7 +88,7 @@ function App() {
         <LoginForm onSubmit={register} buttonText="Register" />
       </Dialog>
     </div>
-  )
+  );
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<App />, document.getElementById('root'));
