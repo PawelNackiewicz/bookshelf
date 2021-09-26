@@ -12,15 +12,17 @@ interface UsernameFormElement extends HTMLFormElement {
   readonly elements: FormElements
 }
 
-interface LoginFormProps {
+type LoginFormProps = {
   onSubmit: (formData: LoginFormInputs) => void,
   buttonText: string
 }
 
-interface LoginFormInputs {
+type LoginFormInputs = {
   username: string,
   password: string
 }
+
+type ModalState = 'none' | 'login' | 'register'
 
 function LoginForm({onSubmit, buttonText}: LoginFormProps) {
   function handleSubmit(event: React.FormEvent<UsernameFormElement>) {
@@ -51,7 +53,7 @@ function LoginForm({onSubmit, buttonText}: LoginFormProps) {
 }
 
 function App() {
-  const [openModal, setOpenModal] = React.useState('none')
+  const [openModal, setOpenModal] = React.useState<ModalState>('none')
 
   function login(formData: LoginFormInputs) {
     // console.log('login', formData)
