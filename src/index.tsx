@@ -4,16 +4,28 @@ import ReactDOM from 'react-dom'
 import {Dialog} from '@reach/dialog'
 import {Logo} from './components/logo'
 
-type LoginFormProps = {
-  onSubmit: Function,
+interface FormElements extends HTMLFormControlsCollection {
+  username: HTMLInputElement,
+  password: HTMLInputElement  
+}
+interface UsernameFormElement extends HTMLFormElement {
+  readonly elements: FormElements
+}
+
+interface LoginFormProps {
+  onSubmit: (formData: LoginFormInputs) => void,
   buttonText: string
 }
 
+interface LoginFormInputs {
+  username: string,
+  password: string
+}
+
 function LoginForm({onSubmit, buttonText}: LoginFormProps) {
-  function handleSubmit(event: React.FormEvent) {
+  function handleSubmit(event: React.FormEvent<UsernameFormElement>) {
     event.preventDefault()
-    // @ts-ignore
-    const {username, password} = event.target.elements
+    const {username, password} = event.currentTarget.elements
 
     onSubmit({
       username: username.value,
@@ -41,11 +53,11 @@ function LoginForm({onSubmit, buttonText}: LoginFormProps) {
 function App() {
   const [openModal, setOpenModal] = React.useState('none')
 
-  function login(formData: React.FormEvent) {
+  function login(formData: LoginFormInputs) {
     // console.log('login', formData)
   }
 
-  function register(formData: React.FormEvent) {
+  function register(formData: LoginFormInputs) {
     // console.log('register', formData)
   }
 
